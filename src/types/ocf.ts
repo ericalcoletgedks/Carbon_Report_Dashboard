@@ -1,0 +1,31 @@
+export interface OcfReport {
+  entity: string
+  total_emissions: number
+  total_scope_1: number
+  total_scope_2: number
+  total_scope_3: number
+  scope_1_1_stationary_combustion: number
+  scope_1_2_mobile_combustion: number
+  scope_1_3_process_emissions: number
+  scope_1_4_1_refrigerant_gases: number
+  scope_1_4_2_fire_extinguishers: number
+  scope_2_1_1_purchased_electricity: number
+  scope_2_1_2_purchased_heat_or_steam: number
+  scope_3_1_1_raw_materials_or_auxiliary_materials: number
+  scope_3_1_2_water_consumption: number
+  scope_3_1_3_services: number
+  scope_3_2_capital_fixed_assets: number
+  scope_3_3_fuel_and_energy_related_activities: number
+  scope_3_4_upstream_transport_and_distribution: number
+  scope_3_5_waste_generated_in_operations: number
+  scope_3_6_business_travel: number
+  scope_3_7_employee_commuting: number
+  scope_3_8_upstream_leased_assets: number
+  scope_3_9_downstream_transport_and_distribution: number
+  scope_3_10_processing_of_sold_products: number
+  scope_3_11_use_of_sold_products: number
+  scope_3_12_end_of_life_treatment_of_sold_products: number
+  scope_3_13_downstream_leased_assets: number
+  scope_3_14_franchises: number
+  scope_3_15_investments: number
+}
