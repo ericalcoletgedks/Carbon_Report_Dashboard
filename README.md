@@ -1,75 +1,124 @@
-# React + TypeScript + Vite
+## Rationale
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Approach
 
-Currently, two official plugins are available:
+I followed a **Path A with elements of Path B**, focusing on building a clear, user-oriented product rather than only a technical exercise. The application is designed specifically for OCF files, prioritising a clean UI, reusable components and maintainable code.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+### What I would improve with more time
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- Add an AI layer to allow users to query and generate reports from selected fields in the datas table.
+- Make dashboard charts configurable (toggle visibility and customise views).
+- Generate automatic chart descriptions using AI based on the underlying data.
+- Use AI to dynamically generate PDF narratives based on selected metrics.
+- Add a backend with authentication to store historical uploads and enable comparisons over time, including saving AI conversations for context-aware assistance.
+- Build a mapping interface for CSV uploads to handle non-standard column naming from different clients.
 
-Note: This will impact Vite dev & build performances.
+---
 
-## Expanding the ESLint configuration
+### Time spent
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Approximately **2–4 hours per day** during development.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Use of AI
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+I used ChatGPT and Claude (free versions) mainly for:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Understanding carbon footprint concepts and domain context
+- Identifying suitable libraries (CSV parsing, PDF generation, charts)
+- Assisting during development for faster iteration while maintaining understanding
+- Improving and refining textual content
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The rest of the project (architecture, implementation, UI design and logic) was built independently.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+# Landscape Research and Technology Decisions
+
+## Frameworks and Core Technologies
+
+- **React + Vite** was selected over Next.js because this project only requires a client-side application. Although I have not yet had the opportunity to work with Next.js extensively, I am interested in learning it in future projects.
+- **TypeScript**
+- **Tailwind CSS**
+
+## Existing Options Survey
+
+### Charts and Data Visualization
+
+**Open-source options considered**
+
+- Recharts
+- Chart.js
+- Make Graph
+- Lightweight Charts
+
+**Decision: Reuse**
+
+Recharts was selected because it provides a declarative React API, good TypeScript support and sufficient flexibility for the required bar, pie and radar charts. It reduced implementation effort while keeping full control over the UI.
+
+---
+
+### PDF Generation
+
+**Open-source options considered**
+
+- jsPDF
+- react-pdf
+- pdf-lib
+
+**Decision: Reuse + Build**
+
+jsPDF was chosen due to its simplicity and compatibility with browser environments. Custom report generation logic was implemented on top of the library to support multiple sections, charts and formatted content.
+
+---
+
+### Exporting Charts as Images
+
+**Open-source options considered**
+
+- html-to-image
+- dom-to-imag
+
+**Decision: Reuse**
+
+html-to-image was selected because it integrates easily with React components and allowed chart components to be converted into images before embedding them into the PDF.
+
+---
+
+### UI Components
+
+**Open-source options considered**
+
+- HeadlessUi
+- shadcn/ui
+
+**Decision: Reuse**
+
+shadcn/ui was selected because it provides accessible components while maintaining complete styling flexibility and minimal overhead.
+
+---
+
+### CSV Processing
+
+**Open-source options considered**
+
+- PapaParse
+- Custom parser
+
+**Decision: Reuse**
+
+PapaParse was used to simplify CSV parsing and ensure reliable processing of uploaded files.
+
+---
+
+## Build vs Reuse vs Buy
+
+No commercial solutions were adopted.
+
+- **Build:** report composition logic, state management and data transformation.
+- **Reuse:** charts, PDF generation, CSV parsing and UI components.
+- **Buy:** none.
+
+This approach minimized development time while keeping the application maintainable, flexible and fully customizable.
