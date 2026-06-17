@@ -1,5 +1,5 @@
 
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { toPng } from "html-to-image"
 import { generatePdf } from "./pdf/generatePdf"
 import type { PdfSection } from "./types"
@@ -9,7 +9,7 @@ import { useCsvParser } from "./hooks/useCsvParser"
 import { ProgressBar } from "./components/ProgressBar"
 import { ErrorAlert } from "./components/ErrorAlert"
 import { Button } from "./components/ui/button"
-import { Download, File } from "lucide-react"
+import { Download, File, LoaderCircleIcon } from "lucide-react"
 import { useCsvData } from "./context/CsvContext"
 import { EmissionsBreakdownTable } from "./components/EmissionsBreakdownTable"
 import { Header } from "./components/layout/Header"
@@ -20,8 +20,11 @@ function App() {
   const chartRefs = useRef<Record<string, HTMLDivElement | null>>({})
   const { parseFile, isLoading, error } = useCsvParser();
   const { rows, setRows } = useCsvData();
+  const [pdfLoading, setPdfLoading] = useState<boolean>(false);
 
   const exportPDF = async () => {
+
+    setPdfLoading(true)
 
     const sections: PdfSection[] = []
 
@@ -39,6 +42,7 @@ function App() {
     }
 
     generatePdf(sections)
+    setPdfLoading(false)
 
   }
 
@@ -48,7 +52,7 @@ function App() {
 
         <Header />
 
-        
+
         <div className="max-w-md m-auto mt-40 text-sm text-center">
           <div className="text-2xl font-medium">Carbon Footprint Report Generator</div>
           <div className="text-muted-foreground mt-2">
@@ -81,7 +85,7 @@ function App() {
               </div>
               <div className="flex items-center gap-2">
                 <Button className="hidden sm:flex" onClick={() => setRows([])} variant={"outline"} disabled={rows.length === 0}> <File /> Clear </Button>
-                <Button onClick={exportPDF} disabled={rows.length === 0}> <Download /> Generate PDF </Button>
+                <Button onClick={exportPDF} disabled={rows.length === 0}>  {pdfLoading ? (<LoaderCircleIcon className="animate-spin" />) : (<Download />)} Generate PDF </Button>
               </div>
             </div>
 
