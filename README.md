@@ -125,3 +125,13 @@ No commercial solutions were adopted.
 - **Buy:** none.
 
 This approach minimized development time while keeping the application maintainable, flexible and fully customizable.
+
+## Links & Resources
+
+- https://ui.shadcn.com/docs/components
+- https://tailwindcss.com/
+- https://stackoverflow.com/questions
+- https://artskydj.github.io/jsPDF/docs/jsPDF.html
+- https://es.pinterest.com/pin/276689970853775483/
+- https://es.pinterest.com/pin/276689970853820158/
+- https://es.pinterest.com/pin/276689970854176118/
